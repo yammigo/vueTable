@@ -10,7 +10,21 @@ import tableHeader from './tableHeader'
 import tableBody from './tableBody'
 export default {
     props: {
-        msg: String
+        columns:{
+            type:Array,
+            default(){
+                return []
+            }
+        },
+        data:{
+            type:Array,
+            default(){
+                return []
+            }
+        }
+    },
+    mounted() {
+       
     },
     components: {
         tableHeader,
