@@ -1,12 +1,10 @@
 <template>
 <div class="f-table-header">
     <table>
-        <colgroup>
-
+        <colgroup  >
+            <col width="210">
             <col width="410">
             <col width="410">
-            <col width="410">
-
         </colgroup>
         <thead>
             <tr>

@@ -2,7 +2,7 @@
 <div class="f-table-body">
     <table cellspacing="0" cellpadding="0" border="0">
         <colgroup>
-            <col width="410">
+            <col width="210">
             <col width="410">
             <col width="410">
         </colgroup>
@@ -118,6 +118,7 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="less">
+     
+    
 </style>
