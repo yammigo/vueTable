@@ -8,7 +8,6 @@
         </colgroup>
         <thead>
             <tr>
-
                 <th>
                     <div class="ivu-table-cell">
 
