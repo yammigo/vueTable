@@ -1,10 +1,20 @@
 <template>
-<div class="f-table-body">
+<div class="f-table-fixed" style="width:120px;overflow:hidden;position:absolute;z-index:999;top:0px;">
     <table cellspacing="0" cellpadding="0" border="0" style="width:100%">
         <colgroup>
             <col width=40>
             <col v-for="(item,index) in cols" :key="index" :width="item.width">
         </colgroup>
+        <thead style="display: table-header-group;">
+            <tr>
+                <th><input type="checkbox"></th>
+                <th v-for="(item,index) in cols" :key="index" :align="item.align">
+                    <div class="ivu-table-cell">
+                        {{item.title}}
+                    </div>
+                </th>
+            </tr>
+        </thead>
         <tbody class="ivu-table-tbody" ref="tbody" style="display: table-row-group;">
             <tr class="ivu-table-row" v-for="(tritem,index1) in bodyData" :key="index1">
                 <td><input type="checkbox" class="checkbox" @change="changeCheck(index1)"></td>
@@ -73,7 +83,6 @@ export default {
     },
     computed: {
         checkstatus() {
-
             return this.checkType;
         }
     },
@@ -82,13 +91,16 @@ export default {
 </script>
 
 <style lang="less">
-.f-table-body {
+.f-table-fixed {
 
     table,
     table tr th,
     table tr td {
         border: 1px solid #eee;
-        padding:5px 10px;
+        border-bottom: 0px solid #eee;
+        padding:5px;
+        background:#eee;
+        cursor: pointer;
     }
 
     table {
@@ -96,13 +108,16 @@ export default {
         padding: 2px;
         table-layout: fixed;
     }
+    table tr{
+        background:red;
+    }
 
-    // table tr:nth-child(even) {
-    //     background: #EEE;
-    // }
+    table tr:nth-child(even) {
+        background: red;
+    }
 
     table tr:hover {
-        background: #efefef;
+        background: red;
     }
 }
 </style>
