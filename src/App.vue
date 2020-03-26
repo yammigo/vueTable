@@ -1,6 +1,6 @@
 <template>
 <div id="app">
-    <Ftable :columns="columns" :data="data"></Ftable>
+    <Ftable :columns="columns" :data="data" style="position: relative;"></Ftable>
 </div>
 </template>
 
