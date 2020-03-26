@@ -1,5 +1,6 @@
 <template>
-  <div class="f-table" style="min-width:750px;position:relative">
+  <div class="f-table" style="min-width:750px;position:relative" ref="Ftable">
+    <!-- 表头（可粘性固定） -->
     <div
       ref="sticky"
       class="f-table-header f-sticky"
@@ -24,8 +25,10 @@
         </thead>
       </table>
     </div>
+    <!-- 数据体 -->
     <tableBody :bodyData="data" :cols="columns" :selectItems.sync="selectItems"/>
-    {{selectItems}}
+    <!-- 固定列 -->
+    
   </div>
 </template>
 <script>
@@ -60,6 +63,7 @@ export default {
   mounted() {
     this.$nextTick(() => {
       Stickyfill.add(this.$refs.sticky);
+      console.log(this.$refs.Ftable.getBoundingClientRect())
     });
   },
   computed: {

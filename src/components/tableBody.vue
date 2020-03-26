@@ -18,7 +18,6 @@
     </table>
 </div>
 </template>
-
 <script>
 import {deepCopy,findIndex} from "../utils/utils"
 export default {
@@ -58,31 +57,20 @@ export default {
     methods: {
         changeCheck(val,e) {
             let copySelectItems  = deepCopy(this.selectItems);
-            let a=copySelectItems.indexOf(this.bodyData[val]);
             if(e.target.checked){
                 copySelectItems.push(this.bodyData[val]);
             }else{
                 let idx=findIndex(copySelectItems,this.bodyData[val]);
-                copySelectItems.splice(a,1);
+                copySelectItems.splice(idx,1);
             }
             this.$emit('update:selectItems',copySelectItems)
         },
-        getThWidthList() {
-            let tdChild = len = this.$refs.tbody.firstChild.children;
-            for (let i = 0, len = this.$refs.tbody.firstChild.children.length; i < 0; i++) {
 
-            }
-        }
     },
     mounted() {
-        // console.log(this.$refs.tbody.firstChild)
-
     },
     computed: {
-        checkstatus() {
-
-            return this.checkType;
-        }
+      
     },
 
 }

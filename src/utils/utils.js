@@ -1,22 +1,25 @@
-// deepCopy
+/*
+au：fanjiantao
+name: utils
+**/
 function typeOf(obj) {
     const toString = Object.prototype.toString;
     const map = {
-        '[object Boolean]'  : 'boolean',
-        '[object Number]'   : 'number',
-        '[object String]'   : 'string',
-        '[object Function]' : 'function',
-        '[object Array]'    : 'array',
-        '[object Date]'     : 'date',
-        '[object RegExp]'   : 'regExp',
+        '[object Boolean]': 'boolean',
+        '[object Number]': 'number',
+        '[object String]': 'string',
+        '[object Function]': 'function',
+        '[object Array]': 'array',
+        '[object Date]': 'date',
+        '[object RegExp]': 'regExp',
         '[object Undefined]': 'undefined',
-        '[object Null]'     : 'null',
-        '[object Object]'   : 'object'
+        '[object Null]': 'null',
+        '[object Object]': 'object'
     };
     return map[toString.call(obj)];
 }
 
-const trim = function(string) {
+const trim = function (string) {
     return (string || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');
 };
 
@@ -26,7 +29,7 @@ function deepCopy(data) {
 
     if (t === 'array') {
         o = [];
-    } else if ( t === 'object') {
+    } else if (t === 'object') {
         o = {};
     } else {
         return data;
@@ -36,7 +39,7 @@ function deepCopy(data) {
         for (let i = 0; i < data.length; i++) {
             o.push(deepCopy(data[i]));
         }
-    } else if ( t === 'object') {
+    } else if (t === 'object') {
         for (let i in data) {
             o[i] = deepCopy(data[i]);
         }
@@ -44,7 +47,7 @@ function deepCopy(data) {
     return o;
 }
 
-export {deepCopy};
+export { deepCopy };
 
 export function hasClass(el, cls) {
     if (!el || !cls) return false;
@@ -102,7 +105,7 @@ export function removeClass(el, cls) {
     }
 }
 
-export function getStyle (element, styleName) {
+export function getStyle(element, styleName) {
     if (!element || !styleName) return null;
     styleName = camelCase(styleName);
     if (styleName === 'float') {
@@ -111,13 +114,17 @@ export function getStyle (element, styleName) {
     try {
         const computed = document.defaultView.getComputedStyle(element, '');
         return element.style[styleName] || computed ? computed[styleName] : null;
-    } catch(e) {
+    } catch (e) {
         return element.style[styleName];
     }
 }
-export function findIndex(a,b){
-    console.log("选中的数据--"+JSON.stringify(a)+','.replace(/\[|\]/g,"").split('},').length);
-    console.log("对比的数据--"+JSON.stringify(b));
-    let index=JSON.stringify(a).replace(/\[|\]/g,"").indexOf(JSON.stringify(b));
-    return index;
+export function findIndex(a, b) {
+    var index = -1;
+    for (var i = 0, len = a.length; i < len; i++) {
+        if (JSON.stringify(b) == JSON.stringify(a[i])) {
+            index = i
+            break
+        }
+    }
+   return index
 }
