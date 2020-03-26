@@ -82,7 +82,6 @@ export function addClass(el, cls) {
     }
 }
 
-/* istanbul ignore next */
 export function removeClass(el, cls) {
     if (!el || !cls) return;
     const classes = cls.split(' ');
@@ -118,6 +117,8 @@ export function getStyle(element, styleName) {
         return element.style[styleName];
     }
 }
+//在没有key 作为标识的情况下使用字符串比较的方式确定b是否在都在a中
+//this is finde object item index
 export function findIndex(a, b) {
     var index = -1;
     for (var i = 0, len = a.length; i < len; i++) {

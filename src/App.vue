@@ -1,6 +1,7 @@
 <template>
 <div id="app">
-    <Ftable :columns="columns" :data="data" style="position: relative;"></Ftable>
+    <!-- 传入height时 使用常规锁定表头方案  默认使用粘性表头锁定-->
+    <Ftable :columns="columns" :data="data" height="200px"></Ftable>
 </div>
 </template>
 
