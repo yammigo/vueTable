@@ -7,7 +7,7 @@
         </colgroup>
         <tbody class="ivu-table-tbody" ref="tbody" style="display: table-row-group;">
             <tr class="ivu-table-row" v-for="(tritem,index1) in bodyData" :key="index1">
-                <td><input type="checkbox" class="checkbox" @change="changeCheck(index1)"></td>
+                <td><input type="checkbox" :checked="findIndex(selectItems,tritem)>-1"  class="checkbox" @change="changeCheck(index1,$event)"></td>
                 <td v-for="(tditem,index2) in cols" :key="index2" :align="tditem.align">
                     <div class="ivu-table-cell" style=" padding:5px;">
                         {{tritem[tditem.name]}}
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import {deepCopy,findIndex} from "../utils/utils"
 export default {
     props: {
         cols: {
@@ -35,10 +36,18 @@ export default {
             }
 
         },
+        selectItems:{
+            type:Array,
+            default:()=>{
+                return []
+            }
+        },
+        
 
     },
     data() {
         return {
+            findIndex:findIndex,
             checkList: {
 
             },
@@ -47,18 +56,16 @@ export default {
         }
     },
     methods: {
-        changeCheck(val) {
-
-            if (this.$refs.tbody.getElementsByClassName('checkbox')[val].checked) {
-                this.checkList[val] = this.bodyData[val];
-
-                this.checkList.length += 1
-
-            } else {
-                delete this.checkList[val];
-                this.checkList.length -= 1
+        changeCheck(val,e) {
+            let copySelectItems  = deepCopy(this.selectItems);
+            let a=copySelectItems.indexOf(this.bodyData[val]);
+            if(e.target.checked){
+                copySelectItems.push(this.bodyData[val]);
+            }else{
+                let idx=findIndex(copySelectItems,this.bodyData[val]);
+                copySelectItems.splice(a,1);
             }
-
+            this.$emit('update:selectItems',copySelectItems)
         },
         getThWidthList() {
             let tdChild = len = this.$refs.tbody.firstChild.children;

@@ -115,3 +115,9 @@ export function getStyle (element, styleName) {
         return element.style[styleName];
     }
 }
+export function findIndex(a,b){
+    console.log("选中的数据--"+JSON.stringify(a)+','.replace(/\[|\]/g,"").split('},').length);
+    console.log("对比的数据--"+JSON.stringify(b));
+    let index=JSON.stringify(a).replace(/\[|\]/g,"").indexOf(JSON.stringify(b));
+    return index;
+}
