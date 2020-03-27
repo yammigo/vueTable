@@ -95,7 +95,9 @@ export default {
     // table tr:nth-child(even) {
     //     background: #EEE;
     // }
-
+    table tr:last-child td{
+        border-bottom:none;   
+    }
     table tr:hover {
         background: #efefef;
     }
