@@ -2,6 +2,24 @@
 au：fanjiantao
 name: utils
 **/
+var throttle = function(func, delay) {     
+    var timer = null;     
+    var startTime = Date.now();     
+    return function() {             
+        var curTime = Date.now();             
+        var remaining = delay - (curTime - startTime);             
+        var context = this;             
+        var args = arguments;             
+        clearTimeout(timer);              
+        if (remaining <= 0) {                    
+            func.apply(context, args);                    
+            startTime = Date.now();              
+        } else {                    
+            timer = setTimeout(func, remaining);              
+        }      
+    }
+}
+export {throttle}
 function typeOf(obj) {
     const toString = Object.prototype.toString;
     const map = {
@@ -118,7 +136,7 @@ export function getStyle(element, styleName) {
     }
 }
 //在没有key 作为标识的情况下使用字符串比较的方式确定b是否在都在a中
-//this is finde object item index
+//this is find object item index
 export function findIndex(a, b) {
     var index = -1;
     for (var i = 0, len = a.length; i < len; i++) {
@@ -127,5 +145,25 @@ export function findIndex(a, b) {
             break
         }
     }
-   return index
+    return index
+}
+ 
+export function getPosition(element) {
+
+    var rect = element.getBoundingClientRect();
+
+    var top = document.documentElement.clientTop;
+
+    var left = document.documentElement.clientLeft;
+    return {
+
+        top: rect.top - top,
+
+        bottom: rect.bottom - top,
+
+        left: rect.left - left,
+
+        right: rect.right - left
+
+    }
 }

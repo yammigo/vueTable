@@ -23,7 +23,7 @@
             </thead>
         </table>
         <!-- 锁定列的表头 -->
-        <div style="width:120px;overflow:hidden;position:absolute;top:0px;right:0px;height:50px;">
+        <div class="fixed-header-right" style="width:120px;overflow:hidden;position:absolute;top:0px;right:0px;height:50px;" ref="fixedRH">
           <table cellspacing="0" cellpadding="0" style="width:100%;">
             <colgroup>
                 <col width="40" />
@@ -55,7 +55,7 @@
     5.固定列中的事件处理:  1重新绑定 或者 2直接克隆节点来转移事件
     -->
     
-    <div class="fixed-body" style="width:120px;position:absolute;right:0px;background:#fff;top:52px;" :style="{height:height>0?(height-15+'px'):'100%'}">
+    <div class="fixed-right-body" style="width:120px;position:absolute;right:0px;background:#fff;top:52px;" :style="{height:height>0?(height-15+'px'):'100%'}">
         <tableBody ref="scrollBody" :bodyData="data" :cols="columns" :selectItems.sync="selectItems" style="overflow:auto;" :style="{height:height>0?(height+'px'):'auto'}" />
     </div>
    {{selectItems}}
@@ -66,6 +66,7 @@
 import Stickyfill from "stickyfilljs";
 import tableBody from "./tableBody";
 import fixedTable from "./fixedTable";
+import {getPosition,throttle} from "../utils/utils"
 export default {
     props: {
         columns: {
@@ -89,7 +90,9 @@ export default {
         return {
             selectItems: [],
             fixedLeft: [],
-            fixedRight: []
+            fixedRight: [],
+            fixedFlag:false,
+            
         };
     },
     methods: {
@@ -116,11 +119,26 @@ export default {
     mounted() {
         this.$nextTick(() => {
             //粘性表头兼容方案//当单页数据量过大时采用粘性表头方案代替原生属性
+            let fixedRH=this.$refs.fixedRH;
+           
             if (this.height== "auto") {
                 Stickyfill.add(this.$refs.sticky);
                 // Stickyfill.add(this.$refs.sticky2);
             }
             // console.log(this.$refs.Ftable.getBoundingClientRect())
+            window.onscroll=throttle(()=>{
+                console.log(this.fixedFlag);
+                var p=getPosition(this.$refs.Ftable);
+                if(p.top<=0 && !this.fixedFlag){
+                    this.fixedFlag=true;
+                    fixedRH.style.position="fixed";
+                   
+                }else{
+                     this.fixedFlag=false;
+                     fixedRH.style.position="absolute";
+                }
+            },100)
+        
         });
     },
     computed: {
