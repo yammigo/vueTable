@@ -20,6 +20,7 @@ export default {
                     name: "",
                     width: 80,
                     align: "center",
+                    fixed:'right'
                 },
                 {
                     title: "股票代码",
@@ -36,28 +37,28 @@ export default {
                 {
                     title: "今收盘",
                     name: "CLOSINGPRICE",
-                    width: 60,
+                    width: 100,
                     align: "right",
 
                 },
                 {
                     title: "涨跌幅",
                     name: "DAYCHANGERATE",
-                    width: 60,
+                    width: 100,
                     align: "right",
 
                 },
                 {
                     title: "涨跌额",
                     name: "DAYCHANGE",
-                    width: 60,
+                    width: 100,
                     align: "right",
 
                 },
                 {
                     title: "振幅",
                     name: "AMPLITUDE",
-                    width: 60,
+                    width: 100,
                     align: "right",
 
                 },
@@ -76,25 +77,25 @@ export default {
                 {
                     title: "昨收盘",
                     name: "PREVCLOSINGPRICE",
-                    width: 60,
+                    width: 100,
                     align: "right"
                 },
                 {
                     title: "今开盘",
                     name: "OPENINGPRICE",
-                    width: 60,
+                    width: 100,
                     align: "right"
                 },
                 {
                     title: "最高价",
                     name: "HIGHESTPRICE",
-                    width: 60,
+                    width: 100,
                     align: "right"
                 },
                 {
                     title: "最低价",
                     name: "LOWESTPRICE",
-                    width: 60,
+                    width: 100,
                     align: "right"
                 }
             ],
