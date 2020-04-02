@@ -1,5 +1,5 @@
 <template>
-<div class="f-table" style="width:800px;position:relative;border:1px solid #eee;" ref="Ftable">
+<div class="f-table" style="position:relative;border:1px solid #eee;" ref="Ftable">
     <!-- 表头（可粘性固定） -->
     <div ref="sticky" class="f-table-header f-sticky" style="width:100%;overflow:hidden;
     top: 0;z-index:10" :style="{position:(height=='auto'?'sticky':'none')}">
@@ -49,7 +49,7 @@
         </table>
     </div>
     <!-- 锁定的表体 -->
-    <div :style="{height:scrollHeight}" class="fixed-right-body" style="width:120px;position:absolute;right:0px;background:#fff;top:0px;">
+    <div :style="{height:scrollHeight,top:fixedHtop+'px'}" class="fixed-right-body" style="width:120px;position:absolute;right:0px;background:#fff;top:0px;">
         <tableBody ref="scrollBody" :bodyData="data" :cols="columns" :selectItems.sync="selectItems" style="overflow:hidden;" :style="{height:height>0?(height+'px'):'auto'}" />
     </div>
     {{selectItems}}
@@ -90,6 +90,7 @@ export default {
             fixedLeft: [],
             fixedRight: [],
             fixedFlag: false,
+            fixedHtop:"0"
 
         };
     },
@@ -118,6 +119,7 @@ export default {
         this.$nextTick(() => {
             //粘性表头兼容方案//当单页数据量过大时采用粘性表头方案代替原生属性
             let fixedRH = this.$refs.fixedRH;
+            this.fixedHtop = fixedRH.offsetHeight;
             this.scrollHeight = this.$refs.scrollBody.$el.clientHeight;
             // console.log(this.$refs.scrollBody.$el.clientHeight);
             if (this.height == "auto") {
