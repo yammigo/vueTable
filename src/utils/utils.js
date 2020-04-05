@@ -2,24 +2,30 @@
 au：fanjiantao
 name: utils
 **/
-var throttle = function(func, delay) {     
-    var timer = null;     
-    var startTime = Date.now();     
-    return function() {             
-        var curTime = Date.now();             
-        var remaining = delay - (curTime - startTime);             
-        var context = this;             
-        var args = arguments;             
-        clearTimeout(timer);              
-        if (remaining <= 0) {                    
-            func.apply(context, args);                    
-            startTime = Date.now();              
-        } else {                    
-            timer = setTimeout(func, remaining);              
-        }      
-    }
+var throttle = function (func, delay) {
+    var timer = null;
+    var startTime = Date.now();
+   
+    
+    return function () {
+        
+        var curTime = Date.now();
+        var remaining = delay - (curTime - startTime);
+        var context = this;
+        var args = arguments;
+        window.clearTimeout(timer);
+        if (remaining <= 0) {
+            
+            func.apply(context, args);
+            startTime = Date.now();
+        } else {
+           
+            
+            timer = setTimeout(func, remaining);
+        }
+    }()
 }
-export {throttle}
+export { throttle }
 function typeOf(obj) {
     const toString = Object.prototype.toString;
     const map = {
@@ -147,7 +153,7 @@ export function findIndex(a, b) {
     }
     return index
 }
- 
+
 export function getPosition(element) {
 
     var rect = element.getBoundingClientRect();
@@ -167,3 +173,92 @@ export function getPosition(element) {
 
     }
 }
+//监听dom 元素是否发生变化
+function onelresize(el, handler) {
+    // if(handler=="destroy"){
+    //     console.log(expand,shrink)
+    //     expand&&expand.addEventListener('scroll', onScroll);
+    //     shrink&&shrink.addEventListener('scroll', onScroll);
+    //     return
+    // }
+    if (!(el instanceof HTMLElement)) {
+        throw new TypeError("Parameter 1 is not instance of 'HTMLElement'.");
+    }
+    // https://www.w3.org/TR/html/syntax.html#writing-html-documents-elements
+    if (/^(area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr|script|style|textarea|title)$/i.test(el.tagName)) {
+        throw new TypeError('Unsupported tag type. Change the tag or wrap it in a supported tag(e.g. div).');
+    }
+    if (typeof handler !== 'function') { throw new TypeError("Parameter 2 is not of type 'function'."); }
+
+    var lastWidth = el.offsetWidth || 1;
+    var lastHeight = el.offsetHeight || 1;
+    var maxWidth = 10000 * lastWidth;
+    var maxHeight = 10000 * lastHeight;
+
+    var expand = document.createElement('div');
+    expand.style.cssText = 'position:absolute;top:0;bottom:0;left:0;right:0;z-index=-10000;overflow:hidden;visibility:hidden;';
+    var shrink = expand.cloneNode(false);
+
+    var expandChild = document.createElement('div');
+    expandChild.style.cssText = 'transition:0s;animation:none;';
+    var shrinkChild = expandChild.cloneNode(false);
+
+    expandChild.style.width = maxWidth + 'px';
+    expandChild.style.height = maxHeight + 'px';
+    shrinkChild.style.width = '250%';
+    shrinkChild.style.height = '250%';
+
+    expand.appendChild(expandChild);
+    shrink.appendChild(shrinkChild);
+    el.appendChild(expand);
+    el.appendChild(shrink);
+
+    if (expand.offsetParent !== el) {
+        el.style.position = 'relative';
+    }
+
+    expand.scrollTop = shrink.scrollTop = maxHeight;
+    expand.scrollLeft = shrink.scrollLeft = maxWidth;
+
+    var newWidth = 0;
+    var newHeight = 0;
+    function onResize() {
+
+        if (newWidth !== lastWidth || newHeight !== lastHeight) {
+            lastWidth = newWidth;
+            lastHeight = newHeight;
+            handler({ width: lastWidth, height: lastHeight });
+        }
+    }
+
+    function onScroll() {
+        throttle(() => {
+            newWidth = el.offsetWidth || 1;
+            newHeight = el.offsetHeight || 1;
+            if (newWidth !== lastWidth || newHeight !== lastHeight) {
+                //    window.requestAnimationFrame(onResize);
+                //节流函数
+                //    throttle(onResize,60);
+                // console.log(onResize);
+                onResize();
+                
+            }
+            expand.scrollTop = shrink.scrollTop = maxHeight;
+            expand.scrollLeft = shrink.scrollLeft = maxWidth;
+
+        },60);
+
+    }
+
+    expand.addEventListener('scroll', onScroll);
+    shrink.addEventListener('scroll', onScroll);
+    //返回一个销毁事件
+    return function () {
+        expand.removeEventListener('scroll', onScroll);
+        shrink.removeEventListener('scroll', onScroll);
+        return true;
+    }
+    //销毁
+}
+
+export { onelresize }

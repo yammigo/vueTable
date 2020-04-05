@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>监听元素大小变化</title>
+</head>
+
+<body>
+    <div id="sizeDom" style="background:#eee;overflow: hidden;">
+        为什么？上面的第二、三步有答案。一般来说，我们的设备都是上到下、左到右，所以属于右下方向溢出，对应上面的 2.1 和 3.1 公式。每次计算滚动距离都会跟可滚动的空间比较取最小值。
+
+因为子元素的尺寸是固定的，且远远大于容器，故两者的差非常大，所以最小值一直是 x 和 y，每次重排都会在同个位置，触发了上面的第五步。
+
+同时根据公式易得：当可滚动空间一开始不比 x 和 y 大，且随滚动不断变小时，就可以让 position 发生变化。
+
+于是，我们先让元素滚到最尽头，那么 x 和 y 达到了最大值。当容器尺寸变大时，因为子元素的尺寸是固定的，故 scrolling area 的大小不变，所以两者的差变小了，x 和 y 得到新的最小值，发生了滚动。见图二。
+    </div>
+    <script>
+        // var passiveEvents = false;
+        // try {
+        //     var opts = Object.defineProperty({}, 'passive', {
+        //         get: function () {
+        //             console.log('asda')
+        //             passiveEvents = { passive: true };
+        //         }
+        //     });
+        // } catch (e) { 
+        //     console.log(e)
+        // }
+        function onelresize(el, handler) {
+            if (!(el instanceof HTMLElement)) {
+                throw new TypeError("Parameter 1 is not instance of 'HTMLElement'.");
+            }
+            // https://www.w3.org/TR/html/syntax.html#writing-html-documents-elements
+            if (/^(area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr|script|style|textarea|title)$/i.test(el.tagName)) {
+                throw new TypeError('Unsupported tag type. Change the tag or wrap it in a supported tag(e.g. div).');
+            }
+            if (typeof handler !== 'function') { throw new TypeError("Parameter 2 is not of type 'function'."); }
+
+            var lastWidth = el.offsetWidth || 1;
+            var lastHeight = el.offsetHeight || 1;
+            var maxWidth = 10000 * lastWidth;
+            var maxHeight = 10000 * lastHeight;
+
+            var expand = document.createElement('div');
+            expand.style.cssText = 'position:absolute;top:0;bottom:0;left:0;right:0;z-index=-10000;overflow:hidden;visibility:hidden;';
+            var shrink = expand.cloneNode(false);
+
+            var expandChild = document.createElement('div');
+            expandChild.style.cssText = 'transition:0s;animation:none;';
+            var shrinkChild = expandChild.cloneNode(false);
+
+            expandChild.style.width = maxWidth + 'px';
+            expandChild.style.height = maxHeight + 'px';
+            shrinkChild.style.width = '250%';
+            shrinkChild.style.height = '250%';
+
+            expand.appendChild(expandChild);
+            shrink.appendChild(shrinkChild);
+            el.appendChild(expand);
+            el.appendChild(shrink);
+
+            if (expand.offsetParent !== el) {
+                el.style.position = 'relative';
+            }
+
+            expand.scrollTop = shrink.scrollTop = maxHeight;
+            expand.scrollLeft = shrink.scrollLeft = maxWidth;
+
+            var newWidth = 0;
+            var newHeight = 0;
+            function onResize() {
+               
+                if (newWidth !== lastWidth || newHeight !== lastHeight) {
+                    lastWidth = newWidth;
+                    lastHeight = newHeight;
+                    handler();
+                }
+            }
+
+            function onScroll() {
+                newWidth = el.offsetWidth || 1;
+                newHeight = el.offsetHeight || 1;
+                if (newWidth !== lastWidth || newHeight !== lastHeight) {
+                    requestAnimationFrame(onResize);
+                }
+                expand.scrollTop = shrink.scrollTop = maxHeight;
+                expand.scrollLeft = shrink.scrollLeft = maxWidth;
+            }
+
+            expand.addEventListener('scroll', onScroll);
+            shrink.addEventListener('scroll', onScroll);
+        }
+    </script>
+    <script>
+        onelresize(document.getElementById('sizeDom'), function () {
+            console.log('元素变化了')
+        })
+    </script>
+</body>
+
+</html>

@@ -1,13 +1,12 @@
 <template>
 <div id="app">
     <!-- 传入height时 使用常规锁定表头方案  默认使用粘性表头锁定-->
-    <Ftable :columns="columns" :data="data" ></Ftable>
+    <Ftable :columns="columns" :data="data"  ></Ftable>
 </div>
 </template>
 
 <script>
 import Ftable from "./components/table.vue";
-
 export default {
     name: "App",
     components: {
@@ -15,6 +14,7 @@ export default {
     },
     data() {
         return {
+            destroy:true,
             columns: [{
                     title: "行情",
                     name: "",
@@ -454,7 +454,12 @@ export default {
             ]
         };
     },
-    methods: {}
+    methods: {},
+    mounted() {
+        //   setTimeout(()=>{
+        //         this.destroy=false;
+        //   },5000)
+    },
 };
 </script>
 
