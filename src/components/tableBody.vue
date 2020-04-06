@@ -1,6 +1,6 @@
 <template>
 <div class="f-table-body">
-    <table cellspacing="0" cellpadding="0" border="0" style="width:100%">
+    <table v-if="fixedLeft.length==0" cellspacing="0" cellpadding="0" border="0" style="width:100%">
         <colgroup>
             <col width=40>
             <col v-for="(item,index) in cols" :key="index" :width="item.width">
@@ -9,6 +9,28 @@
             <tr class="ivu-table-row" v-for="(tritem,index1) in bodyData" :key="index1">
                 <td><input type="checkbox" :checked="findIndex(selectItems,tritem)>-1"  class="checkbox" @change="changeCheck(index1,$event)"></td>
                 <td v-for="(tditem,index2) in cols" :key="index2" :align="tditem.align">
+                    <div class="ivu-table-cell" style=" padding:5px;">
+                        {{tritem[tditem.name]}}
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table v-if="fixedLeft.length>0" cellspacing="0" cellpadding="0" border="0" style="width:100%">
+        <colgroup>
+            <col width=40>
+            <col v-for="(item,index) in cols" :key="index" :width="item.width">
+        </colgroup>
+        <tbody class="ivu-table-tbody" ref="tbody" style="display: table-row-group;">
+           <tr class="ivu-table-row" v-for="(tritem,index1) in bodyData" :key="index1">
+                <td><input type="checkbox" :checked="findIndex(selectItems,tritem)>-1"  class="checkbox" @change="changeCheck(index1,$event)"></td>
+                <!-- <td v-for="(tditem,index2) in fixedLeft" :key="index2" :align="cols[tditem.idx].align">
+                    <div class="ivu-table-cell" style=" padding:5px;">
+                        {{bodyData[cols[tditem.idx]['name']]}}
+                       
+                    </div>
+                </td> -->
+                 <td v-for="(tditem,index2) in cols" :key="index2" :align="tditem.align">
                     <div class="ivu-table-cell" style=" padding:5px;">
                         {{tritem[tditem.name]}}
                     </div>
@@ -41,6 +63,12 @@ export default {
                 return []
             }
         },
+        fixedLeft:{
+            type:Array,
+            default:()=>{
+                return []
+            }
+        }
         
 
     },
@@ -98,6 +126,7 @@ export default {
     table tr:last-child td{
         border-bottom:none;   
     }
+  
     table tr:hover {
         background: #efefef;
     }

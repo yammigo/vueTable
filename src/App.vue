@@ -1,7 +1,7 @@
 <template>
 <div id="app">
     <!-- 传入height时 使用常规锁定表头方案  默认使用粘性表头锁定-->
-    <Ftable :columns="columns" :data="data"  ></Ftable>
+    <Ftable :columns="columns" :data="data" ></Ftable>
 </div>
 </template>
 
@@ -20,7 +20,7 @@ export default {
                     name: "",
                     width: 80,
                     align: "center",
-                    fixed:'right'
+                    fixed:'left',
                 },
                 {
                     title: "股票代码",
