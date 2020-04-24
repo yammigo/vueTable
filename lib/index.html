@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Document</title>
+    <script src="./scrollbar.js"></script>
+    <link rel="stylesheet" href="./scrollbar.css">
+</head>
+
+<body>
+    <div id="scroll-warp" style="width:200px;height:200px;overflow:hidden;" onscroll="myFunction()">
+        <div class="something-scrollable">
+            <div class="gm-scrollbar -vertical">
+                <div class="thumb"></div>
+            </div>
+            <div class="gm-scrollbar -horizontal">
+                <div class="thumb"></div>
+            </div>
+            <div class="gm-scroll-view" onscroll="myFunction()">
+                <div style="width:1000px;height:500px;background-color:red;"></div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var sidebar = new GeminiScrollbar({
+            element: document.getElementById('scroll-warp'),
+            createElements: false,
+            onResize: function () {
+                console.log('sidebar resized');
+            },
+            autoCreate: true,
+            autoshow: false,
+            forceGemini:false,
+            minThumbSize: false,
+        }).create()
+        function myFunction() {
+            console.log('asdasd')
+        }
+//         autoCreate	Boolean	true	自动创建自定义滚动条
+// autoshow	Boolean	false	hover时才显示滚动条
+// forceGemini	Boolean	false	原生滚动条可见的情况下，强制显示自定义滚动条（开发时会比较有用）
+// minThumbSize	Number	20	滚动条最小长度
+// ready	geminiScrollbar实例	GeminiScrollbar实例创建
+// resize	-	滚动区域大小调整时触发
+// create	创建滚动区域
+// update	重新计算滚动区域大小（vue可以监听并触发组件updated的时候，都不需要你手动去调用它；但是像图片资源的load导致高度变化，你需要在合适的时候去手动调用；）
+// destroy	移除绑定事件及滚动条元素
+    </script>
+</body>
+
+</html>
