@@ -8,8 +8,11 @@
   },
   "dependencies": {
     "core-js": "^3.6.4",
+    "deepmerge": "^4.2.2",
+    "element-resize-detector": "^1.2.1",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
+    "lodash.throttle": "^4.1.1",
     "stickyfilljs": "^2.1.0",
     "vue": "^2.6.11"
   },
