@@ -25,7 +25,7 @@
     </div>
     <!-- 可滚动的数据体 -->
     <div :style="{height:scrollHeight?(scrollHeight+'px;'):'auto',overflow:'hidden'}">
-        <tableBody ref="scrollBody" v-on:scroll.native="orderScroll($event)" :bodyData="data" :cols="columns" :selectItems.sync="selectItems" style="overflow:auto;" :style="{height:height>0?(height+'px'):'auto'}" />
+        <tableBody ref="scrollBody" v-on:scroll="orderScroll" :bodyData="data" :cols="columns" :selectItems.sync="selectItems" style="overflow:hidden;" :style="{height:height>0?(height+'px'):'auto'}" />
     </div>
     <!-- 锁定列的表头 左侧 -->
     <div class="fixed-header-left"  style="width:120px;overflow:hidden;position:absolute;top:0px;left:0px;z-index:999;" :style="{width:fixedLeftWidth+'px',position:'sticky'}" ref="fixedRH">
@@ -63,7 +63,8 @@ import tableBody from "./tableBody";
 import fixedTable from "./fixedTable";
 import {
     getPosition,
-    throttle
+    throttle,
+  
 } from "../utils/utils";
 export default {
     props: {
@@ -99,6 +100,7 @@ export default {
     },
     methods: {
         orderScroll(e) {
+            console.log('滚动');
             this.$refs.sticky.scrollLeft = e.target.scrollLeft;
         },
         checkedAll(e) {
@@ -275,7 +277,8 @@ export default {
     },
     components: {
         tableBody,
-        fixedTable
+        fixedTable,
+       
     },
     beforeDestroy() {
         //卸载函数

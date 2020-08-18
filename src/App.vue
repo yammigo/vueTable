@@ -1,23 +1,28 @@
 <template>
 <div id="app">
     <!-- 传入height时 使用常规锁定表头方案  默认使用粘性表头锁定-->
-    <!-- <Ftable :columns="columns" :data="data" ></Ftable> -->
+    <Ftable :columns="columns" :data="data" ></Ftable>
     <div style="width:500px;height:30px;" ref="boxwarp">
     
     </div>
-      <bytedTable :columns="columns1" :data="data1"></bytedTable>
+      <!-- <bytedTable :columns="columns1" :data="data1"></bytedTable> -->
+      <!-- <scrollBar style="height:200px;width:100px;background:#eee;">
+              <div v-for="index in 10" :key="index" style="height:60px;width:160px" :style="{color:'red'}">{{index}}</div>
+      </scrollBar> -->
 
 </div>
 </template>
 
 <script>
+import scrollBar from "./lib/scrollBar/index"
 import Ftable from "./components/table.vue";
 import bytedTable from "../src/tableComponents/table/table"
 export default {
     name: "App",
     components: {
         Ftable,
-        bytedTable
+        bytedTable,
+        scrollBar
     },
     data() {
         return {
