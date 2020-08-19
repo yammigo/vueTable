@@ -1,7 +1,7 @@
 <template>
 <div id="app">
     <!-- 传入height时 使用常规锁定表头方案  默认使用粘性表头锁定-->
-    <Ftable :columns="columns" :data="data" ></Ftable>
+    <Ftable :columns="columns" :data="data" style="width:80%"></Ftable>
     <div style="width:500px;height:30px;" ref="boxwarp">
     
     </div>
@@ -28,26 +28,19 @@ export default {
         return {
             option:{},
             destroy: true,
-            columns: [{
-                    title: "行情",
-                    name: "",
-                    width: 80,
-                    align: "center",
-                    fixed: 'left',
-                },
+            columns: [
                 {
                     title: "股票代码",
                     name: "SECUCODE",
                     width: 100,
+                    fixed:"left",
                     align: "center",
-                    fixed: 'left'
                 },
                 {
                     title: "股票名称",
                     name: "SECUABBR",
                     width: 100,
                     align: "center",
-                    fixed: "left"
                 },
                 {
                     title: "今收盘",
@@ -78,6 +71,78 @@ export default {
 
                 },
                 {
+                    title: "成交量(手)",
+                    name: "TURNOVERVOL",
+                    width: 100,
+                    align: "right"
+                },
+                {
+                    title: "成交额(万)",
+                    name: "TURNOVERVAL",
+                    width: 100,
+                    align: "right"
+                },
+                {
+                    title: "昨收盘",
+                    name: "PREVCLOSINGPRICE",
+                    width: 100,
+                    align: "right"
+                },
+                {
+                    title: "今开盘",
+                    name: "OPENINGPRICE",
+                    width: 100,
+                    align: "right"
+                },
+                {
+                    title: "最高价",
+                    name: "HIGHESTPRICE",
+                    width: 100,
+                    align: "right"
+                },
+                {
+                    title: "最低价",
+                    name: "LOWESTPRICE",
+                    width: 100,
+                    align: "right"
+                },
+                  {
+                    title: "成交量(手)",
+                    name: "TURNOVERVOL",
+                    width: 100,
+                    align: "right"
+                },
+                {
+                    title: "成交额(万)",
+                    name: "TURNOVERVAL",
+                    width: 100,
+                    align: "right"
+                },
+                {
+                    title: "昨收盘",
+                    name: "PREVCLOSINGPRICE",
+                    width: 100,
+                    align: "right"
+                },
+                {
+                    title: "今开盘",
+                    name: "OPENINGPRICE",
+                    width: 100,
+                    align: "right"
+                },
+                {
+                    title: "最高价",
+                    name: "HIGHESTPRICE",
+                    width: 100,
+                    align: "right"
+                },
+                {
+                    title: "最低价",
+                    name: "LOWESTPRICE",
+                    width: 100,
+                    align: "right"
+                },
+                  {
                     title: "成交量(手)",
                     name: "TURNOVERVOL",
                     width: 100,

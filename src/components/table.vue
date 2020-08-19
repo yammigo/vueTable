@@ -1,24 +1,24 @@
 <template>
-<div class="f-table" style="position:relative;border:1px solid #eee;width:80%;margin:auto" ref="Ftable" v-resize="updateRsize">
+<!-- <div class="f-table" style="position:relative;border:1px solid #eee;margin:auto" ref="Ftable" v-resize="updateRsize"> -->
+<div class="f-table" style="position:relative;border:1px solid #eee;margin:auto" ref="Ftable">
     <!-- 表头（可粘性固定） -->
     <div ref="sticky" class="f-table-header f-sticky" style="width:100%;overflow:hidden;
     top: 0;z-index:10" :style="{position:(height=='auto'?'sticky':'none')}">
         <table cellspacing="0" cellpadding="0" style="width:100%">
             <colgroup>
-                <col width="40" />
+                <!-- <col width="40" /> -->
                 <col v-for="(item,index) in columns" :key="index" :width="item.width" />
                 <!-- <col width="15" /> -->
             </colgroup>
             <thead style="display: table-header-group;">
                 <tr>
-                    <th>
+                    <!-- <th>
                         <input type="checkbox" :checked="checkedStatus" ref="checkedAll" @change="checkedAll" />
-                    </th>
+                    </th> -->
                     <th v-for="(item,index) in columns" :key="index" :align="item.align">
                         <div class="ivu-table-cell">{{item.title}}</div>
                     </th>
-                    <!-- th占位处理滚动条宽度 -->
-                    <!-- <th rowspan="1"></th> -->
+                    <th rowspan="1"></th>
                 </tr>
             </thead>
         </table>
@@ -28,19 +28,19 @@
         <tableBody ref="scrollBody" v-on:scroll="orderScroll" :bodyData="data" :cols="columns" :selectItems.sync="selectItems" style="overflow:hidden;" :style="{height:height>0?(height+'px'):'auto'}" />
     </div>
     <!-- 锁定列的表头 左侧 -->
-    <div class="fixed-header-left"  style="width:120px;overflow:hidden;position:absolute;top:0px;left:0px;z-index:999;" :style="{width:fixedLeftWidth+'px',position:'sticky'}" ref="fixedRH">
+    <div class="fixed-header-left" ref="fixedRH" style="width:120px;overflow:hidden;position:absolute;top:0px;left:0px;z-index:999;" :style="{width:fixedLeftWidth+'px'}">
         <table cellspacing="0" cellpadding="0" style="width:100%;">
             <colgroup>
-                <col width="40" />
+                <!-- <col width="40" /> -->
                 <col v-for="(item,index) in fixedLeft" :key="index" :width="columns[item.idx].width" />
                 <!-- 左侧不需要滚动条宽度 -->
                 <!-- <col width="15" /> -->
             </colgroup>
             <thead style="display: table-header-group;">
                 <tr>
-                    <th>
+                    <!-- <th>
                         <input type="checkbox" :checked="checkedStatus" ref="checkedAll" @change="checkedAll" />
-                    </th>
+                    </th> -->
                     <th v-for="(item,index) in fixedLeft" :key="index" :align="columns[item.idx].align">
                         <div class="ivu-table-cell">{{columns[item.idx].title}}</div>
                     </th>
@@ -51,9 +51,9 @@
     </div>
     <!-- 锁定的表体 -->
     <div :style="{height:scrollHeight+'px',top:fixedHtop+'px',width:fixedLeftWidth+'px'}" class="fixed-left-body" style="width:120px;position:absolute;left:0px;background:#fff;top:0px;overflow:hidden;">
-        <tableBody :bodyData="data" :fixedLeft="fixedLeft" :cols="columns" :selectItems.sync="selectItems" style="overflow:hidden;"  :style="{width:scrollWidth+'px'}" />
+        <tableBody :bodyData="data" :fixedLeft="fixedLeft" :cols="columns" :selectItems.sync="selectItems" style="overflow:hidden;" :style="{width:scrollWidth+'px'}" />
     </div>
-    {{selectItems}}
+    <!-- {{selectItems}} -->
 </div>
 </template>
 
@@ -64,7 +64,7 @@ import fixedTable from "./fixedTable";
 import {
     getPosition,
     throttle,
-  
+
 } from "../utils/utils";
 export default {
     props: {
@@ -87,8 +87,8 @@ export default {
     },
     data() {
         return {
-            scrollHeight:0,
-            scrollWidth:0,
+            scrollHeight: 0,
+            scrollWidth: 0,
             selectItems: [],
             fixedLeftWidth: 0,
             fixedRightWidth: 0,
@@ -100,7 +100,6 @@ export default {
     },
     methods: {
         orderScroll(e) {
-            console.log('滚动');
             this.$refs.sticky.scrollLeft = e.target.scrollLeft;
         },
         checkedAll(e) {
@@ -136,9 +135,9 @@ export default {
                     }
 
                 }
-                this.fixedRightWidth = fixedRightW+firstRow[0].offsetWidth;
-                this.fixedLeftWidth = fixedLeftW+firstRow[0].offsetWidth;
-                console.log(this.fixedLeftWidth, "数据");
+                this.fixedRightWidth = fixedRightW + firstRow[0].offsetWidth;
+                this.fixedLeftWidth = fixedLeftW + firstRow[0].offsetWidth;
+                // console.log(this.fixedLeftWidth, "数据");
 
             })
 
@@ -155,42 +154,40 @@ export default {
                 this.fixedRight[i].colWidth = firstRow[i + 1].offsetWidth;
                 fixedRightW += firstRow[i + 1].offsetWidth;
             }
-            this.fixedRightWidth = fixedRightW+firstRow[0].offsetWidth;
-            this.fixedLeftWidth = fixedLeftW+firstRow[0].offsetWidth;
+            this.fixedRightWidth = fixedRightW + firstRow[0].offsetWidth;
+            this.fixedLeftWidth = fixedLeftW + firstRow[0].offsetWidth;
         },
         fixedResize() {
             this.$nextTick(() => {
                 //粘性表头兼容方案//当单页数据量过大时采用粘性表头方案代替原生属性
                 let fixedRH = this.$refs.fixedRH;
-                this.fixedHtop = fixedRH.offsetHeight+3;
+                this.fixedHtop = fixedRH.offsetHeight;
                 this.scrollHeight = this.$refs.scrollBody.$el.clientHeight;
                 this.scrollWidth = this.$refs.scrollBody.$el.offsetWidth;
-
+                let tableHeight = this.$refs.Ftable.clientHeight;
                 if (this.height == "auto") {
                     Stickyfill.add(this.$refs.sticky);
                     // Stickyfill.add(this.$refs.sticky2);
                 }
+                // window.addEventListener('scroll',()=>{
 
+                // })
+                // console.log(this.$refs.Ftable.clientHeight);
                 window.onscroll = () => {
-                    var p = getPosition(this.$refs.Ftable);
-                    //左侧固定
-                    // if (p.top <= 0 && !this.fixedFlag) {
-                    //     this.fixedFlag = true;
-                    //     fixedRH.style.position = "fixed";
-                    //     fixedRH.style.left = p.right - fixedRH.offsetWidth + "px";
-                    // } else {
-                    //     if (p.top > 0 && this.fixedFlag) {
 
-                    //         this.fixedFlag = false;
-                    //         fixedRH.style.position = "absolute";
-                    //         fixedRH.style.left = "";
-                    //     }
-                    // }
-                    //右侧固定
-                     if (p.top <= 0 && !this.fixedFlag) {
+                    var p = getPosition(this.$refs.Ftable);
+                    if (p.bottom - tableHeight < 0) {
+                         this.setScrollBar(true);
+                         this.barFlag=true;
+                    }else{
+                        this.setScrollBar(false);
+                        this.barFlag=false;
+                    }
+                    //左侧固定
+                    if (p.top <= 0 && !this.fixedFlag) {
                         this.fixedFlag = true;
                         fixedRH.style.position = "fixed";
-                        fixedRH.style.left = p.left+ "px";
+                        fixedRH.style.left = p.right - fixedRH.offsetWidth + "px";
                     } else {
                         if (p.top > 0 && this.fixedFlag) {
 
@@ -199,6 +196,22 @@ export default {
                             fixedRH.style.left = "";
                         }
                     }
+
+                    //右侧固定
+                    //  if (p.top <= 0 && !this.fixedFlag) {
+                    //     this.fixedFlag = true;
+                    //     fixedRH.style.position = "fixed";
+                    //     fixedRH.style.left = p.left+ "px";
+                    // } else {
+                    //     if (p.top > 0 && this.fixedFlag) {
+
+                    //         this.fixedFlag = false;
+                    //         fixedRH.style.position = "absolute";
+                    //         fixedRH.style.left = "";
+                    //     }
+                    // }
+
+                    //判断底部的滚动条
 
                 };
             });
@@ -209,21 +222,22 @@ export default {
             this.scrollHeight = this.$refs.scrollBody.$el.clientHeight;
             this.scrollWidth = this.$refs.scrollBody.$el.offsetWidth;
             var p = getPosition(this.$refs.Ftable);
+
             //右侧固定
-            // if (p.top <= 0) {
-            //     this.fixedFlag = true;
-                
-            //     fixedRH.style.position = "fixed";
-            //     fixedRH.style.left = p.right - fixedRH.offsetWidth + "px";
-            // } else {
-            //     if (p.top > 0) {
-            //         this.fixedFlag = false;
-            //         fixedRH.style.position = "absolute";
-            //         fixedRH.style.left = "";
-            //     }
-            // }
+            if (p.top <= 0) {
+                this.fixedFlag = true;
+
+                fixedRH.style.position = "fixed";
+                fixedRH.style.left = p.right - fixedRH.offsetWidth + "px";
+            } else {
+                if (p.top > 0) {
+                    this.fixedFlag = false;
+                    fixedRH.style.position = "absolute";
+                    fixedRH.style.left = "";
+                }
+            }
             //左侧固定
-             if (p.top <= 0) {
+            if (p.top <= 0) {
                 this.fixedFlag = true;
                 fixedRH.style.position = "fixed";
                 fixedRH.style.left = p.left + "px";
@@ -235,13 +249,28 @@ export default {
                 }
             }
             this.updateFixed();
+        },
+        //处理滚动条位置
+        setScrollBar(e) {
+            // if(!!this.barFlag) return;
+            if (e) {
+                var el = this.$refs.scrollBody.$el.children[0].children[1];
+                el.style.position = "";
+                el.style.left="";
+                return
+            }
+            var p = getPosition(this.$refs.Ftable);
+            var el = this.$refs.scrollBody.$el.children[0].children[1];
+            el.style.position = "fixed";
+            el.style.left = p.left + 2 + "px";
+
         }
     },
 
     mounted() {
-        this.findFixed();
-
+        this.setScrollBar(false);
         this.fixedResize();
+        //  this.findFixed();
 
     },
     computed: {
@@ -278,7 +307,7 @@ export default {
     components: {
         tableBody,
         fixedTable,
-       
+
     },
     beforeDestroy() {
         //卸载函数

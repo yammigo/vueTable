@@ -114,13 +114,13 @@ export default {
       widthPercentage = (wrap.clientWidth * 100) / wrap.scrollWidth
 
       this.sizeHeight = heightPercentage < 100 ? heightPercentage + '%' : '';
-      this.sizeWidth = widthPercentage < 100 ? widthPercentage + '%' : '';
+      // this.sizeWidth = widthPercentage < 100 ? widthPercentage + '%' : '';
 
       // console.log(this.sizeWidth,"宽度")
       // console.log(wrap.scrollWidth,"宽度");
       // widthPercentage < 100 && console.log(widthPercentage);
       // console.log(wrap.scrollWidth*widthPercentage/100)
-      this.sizeWidth = widthPercentage < 100 ?wrap.clientWidth*widthPercentage/100+"px":""
+      this.sizeWidth = widthPercentage < 100 ?wrap.clientWidth*widthPercentage/100-2+"px":""
     }
   },
 
