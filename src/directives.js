@@ -6,6 +6,7 @@ Vue.directive('resize', {
         //  console.log(vnode)
        var dey= onelresize(el,function(){
           //  binding.value();
+          console.log("窗口变化了")
              binding.value();
         })
        

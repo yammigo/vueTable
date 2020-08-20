@@ -1,6 +1,6 @@
 <template>
 <!-- <div class="f-table" style="position:relative;border:1px solid #eee;margin:auto" ref="Ftable" v-resize="updateRsize"> -->
-<div class="f-table" style="position:relative;border:1px solid #eee;margin:auto" ref="Ftable">
+<div class="f-table" style="position:relative;background:#fff;margin:auto" ref="Ftable">
     <!-- 表头（可粘性固定） -->
     <div ref="sticky" class="f-table-header f-sticky" style="width:100%;overflow:hidden;
     top: 0;z-index:10" :style="{position:(height=='auto'?'sticky':'none')}">
@@ -87,6 +87,7 @@ export default {
     },
     data() {
         return {
+            windiwH:0,
             scrollHeight: 0,
             scrollWidth: 0,
             selectItems: [],
@@ -95,7 +96,8 @@ export default {
             fixedLeft: [],
             fixedRight: [],
             fixedFlag: false,
-            fixedHtop: "0"
+            fixedHtop: "0",
+            tableHeight: 0
         };
     },
     methods: {
@@ -164,7 +166,7 @@ export default {
                 this.fixedHtop = fixedRH.offsetHeight;
                 this.scrollHeight = this.$refs.scrollBody.$el.clientHeight;
                 this.scrollWidth = this.$refs.scrollBody.$el.offsetWidth;
-                let tableHeight = this.$refs.Ftable.clientHeight;
+                this.tableHeight = this.$refs.Ftable.clientHeight;
                 if (this.height == "auto") {
                     Stickyfill.add(this.$refs.sticky);
                     // Stickyfill.add(this.$refs.sticky2);
@@ -176,13 +178,7 @@ export default {
                 window.onscroll = () => {
 
                     var p = getPosition(this.$refs.Ftable);
-                    if (p.bottom - tableHeight < 0) {
-                         this.setScrollBar(true);
-                         this.barFlag=true;
-                    }else{
-                        this.setScrollBar(false);
-                        this.barFlag=false;
-                    }
+                    this.setScrollBar();
                     //左侧固定
                     if (p.top <= 0 && !this.fixedFlag) {
                         this.fixedFlag = true;
@@ -250,28 +246,38 @@ export default {
             }
             this.updateFixed();
         },
+        resize(){
+           this.windiwH=window.innerHeight||document.documentElement.clientHeight;
+           this.setScrollBar()
+        },
         //处理滚动条位置
-        setScrollBar(e) {
-            // if(!!this.barFlag) return;
-            if (e) {
-                var el = this.$refs.scrollBody.$el.children[0].children[1];
-                el.style.position = "";
-                el.style.left="";
-                return
-            }
+        setScrollBar() {
             var p = getPosition(this.$refs.Ftable);
             var el = this.$refs.scrollBody.$el.children[0].children[1];
-            el.style.position = "fixed";
-            el.style.left = p.left + 2 + "px";
+            if (this.tableHeight == 0) {
+                this.tableHeight = this.$refs.Ftable.clientHeight;
+            }
+            if (p.bottom-this.windiwH<0) {
+                el.style.position = "";
+                el.style.left = "";
+
+            } else {
+                el.style.position = "fixed";
+                el.style.left = p.left + 2 + "px";
+
+            }
 
         }
     },
 
     mounted() {
-        this.setScrollBar(false);
         this.fixedResize();
+        this.resize();
+        window.addEventListener('resize',this.resize);
+        this.$once('hook:beforeDestroy',()=>{
+            window.removeEventListener('resize',this.resize)
+        })
         //  this.findFixed();
-
     },
     computed: {
         checkedStatus() {
@@ -322,17 +328,21 @@ export default {
 
 <style lang="less">
 .f-table {
+    box-sizing:border-box;
+    border:solid 1px #eee;
     .f-table-header {
         font-size: 16px;
         // box-shadow: 0px 6px 10px -5px #a5a5a5;
 
         table tr th,
         table tr td {
-            border: 1px solid #eee;
+            // border: 1px solid #eee;
             border-bottom: 0px solid #eee;
             padding: 10px 10px;
-            background: #eee;
+            background: #bebebe;
+           
             cursor: pointer;
+            font-weight:100;
         }
 
         table tr th:active {

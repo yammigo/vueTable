@@ -191,7 +191,7 @@ export default {
                 EPS: 0.9217,
                 LOWESTPRICE: 7.49,
                 OPENINGPRICE: 7.51,
-                SECUABBR: "浦发银行",
+                SECUABBR: "浦发银行浦发银行",
                 ALISTEDSHARE: 14922777132,
                 ID: 3131258,
                 WCOSTAVG: 8.7968,
