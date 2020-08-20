@@ -23,7 +23,10 @@
                         <input type="checkbox" :checked="findIndex(selectItems,tritem)>-1" class="checkbox" @change="changeCheck(index1,$event)" />
                     </td> -->
                     <td v-for="(tditem,index2) in cols" :key="index2" :align="tditem.align">
-                        <div class="ivu-table-cell" style="padding:5px;">{{tritem[tditem.name]}}</div>
+                        <div v-if="typeof tditem.render=='function'">
+                            <tableRender :row="tritem" :render="tditem.render" :index="index1"></tableRender>
+                        </div>
+                        <div v-else class="ivu-table-cell" style="padding:5px;">{{tritem[tditem.name]}}</div>
                     </td>
                 </tr>
             </tbody>
@@ -48,7 +51,7 @@
                 </td> -->
                 <td v-for="(tditem,index2) in fixedLeft" :key="index2" :align="cols[tditem.idx].align">
                     <div class="ivu-table-cell" style="padding:5px;">
-                        {{bodyData[cols[tditem.idx]['name']]}}
+                        {{ bodyData[cols[tditem.idx]['name']]}}
                     </div>
                 </td>
                 <!-- <td v-for="(tditem,index2) in cols" :key="index2" :align="tditem.align">
@@ -66,9 +69,11 @@ import {
     findIndex
 } from "../utils/utils";
 import scrollBar from "../lib/scrollBar/index";
+import tableRender from "./render"
 export default {
     components: {
         scrollBar,
+        tableRender
     },
     props: {
         cols: {
