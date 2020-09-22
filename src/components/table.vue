@@ -1,6 +1,6 @@
 <template>
 <!-- <div class="f-table" style="position:relative;border:1px solid #eee;margin:auto" ref="Ftable" v-resize="updateRsize"> -->
-<div class="f-table" style="position:relative;background:#fff;margin:auto" ref="Ftable">
+<div class="f-table" style="position:relative;background:#fff;margin:auto;padding-bottom:10px" ref="Ftable">
     <!-- 表头（可粘性固定） -->
     <div ref="sticky" class="f-table-header f-sticky" style="width:100%;overflow:hidden;
     top: 0;z-index:10" :style="{position:(height=='auto'?'sticky':'none')}">
@@ -264,6 +264,7 @@ export default {
             } else {
                 el.style.position = "fixed";
                 el.style.left = p.left + 2 + "px";
+                el.style.width = this.$refs.scrollBody.$el.offsetWidth-2+"px";
 
             }
 
@@ -330,6 +331,9 @@ export default {
 .f-table {
     box-sizing:border-box;
     border:solid 1px #eee;
+    .el-scrollbar__bar.is-horizontal{
+        height:10px;
+    }
     .f-table-header {
         font-size: 16px;
         // box-shadow: 0px 6px 10px -5px #a5a5a5;
