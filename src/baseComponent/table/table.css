@@ -1,0 +1,269 @@
+.jiantao-table
+{
+	width:100%;
+	max-width:100%;
+	overflow:hidden;
+	position:relative;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+	border:1px solid #dadfe3;
+	border-right:none;
+	border-bottom:none;
+	
+}
+.custom-scroll-horizontal-bar {
+    border-top: 1px solid #dfdfdf;
+    border-bottom: 1px solid #dfdfdf;
+    padding: 3px 8px;
+}
+.custom-scroll-bar {
+    background: #f3f4f5;
+    box-sizing: border-box;
+    z-index: 20;
+}
+.custom-scroll-handle {
+    background: #c1c1c1;
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+.jiantao-table:before
+{
+	left:0;
+	height:1px;
+}
+
+.jiantao-table:after,.jiantao-table:before
+{
+	content:\"\";
+	position:absolute;
+	right:0;
+	bottom:0;
+	background:#dadfe3;
+	z-index:1;
+}
+
+.jiantao-table:after
+{
+	top:0;
+	width:1px;
+}
+
+.jiantao-table table
+{
+	table-layout:fixed;
+	border-collapse:separate;
+	width:100%;
+}
+
+.jiantao-table table tr td,.jiantao-table table tr th
+{
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+	word-break:break-all;
+	position:relative;
+	font-size:12px;
+	line-height:20px;
+	color:#333;
+	border:1px solid #dadfe3;
+	border-left:none;
+	border-top:none;
+	padding:0;
+}
+
+.jiantao-table table tr td .fui-table-ceil,.jiantao-table table tr th .fui-table-ceil
+{
+	text-align:left;
+	-webkit-box-pack:start;
+	-ms-flex-pack:start;
+	justify-content:flex-start;
+	padding:13px 16px;
+}
+
+.jiantao-table table tr th
+{
+	font-weight:700;
+	background-color:#f8f9fa;
+}
+
+.jiantao-table table tr th .fui-table-th-resize
+{
+	position:absolute;
+	top:0;
+	bottom:0;
+	right:-1px;
+	width:5px;
+	z-index:3;
+	cursor:col-resize;
+}
+
+.jiantao-table .fui-table-resizeline
+{
+	position:absolute;
+	top:0;
+	bottom:0;
+	border-left:1px solid #2f88ff;
+	z-index:3;
+}
+
+.jiantao-table .fui-table-wrapper
+{
+	color:#333;
+	font-size:12px;
+	background-color:#fff;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+	position:relative;
+}
+
+.jiantao-table .fui-table-wrapper .fui-table-header-icon-wrapper
+{
+	display:inline-block;
+	margin-left:4px;
+	vertical-align:bottom;
+	margin-bottom:6px;
+	cursor:pointer;
+	position:relative;
+	line-height:0;
+}
+
+.jiantao-table .fui-table-wrapper .fui-table-header-icon-wrapper .fui-table-sort-icon
+{
+	display:block;
+	width:12px;
+	height:12px;
+	margin-bottom:-5px;
+}
+
+.jiantao-table .fui-table-wrapper .fui-table-body
+{
+	position:relative;
+	overflow:auto;
+}
+
+.jiantao-table .fui-table-wrapper .fui-table-fixed-left
+{
+	position:absolute;
+	top:0;
+	left:0;
+	width:200px;
+	overflow:hidden;
+}
+
+.jiantao-table .fui-table-wrapper .fui-table-fixed-left,.jiantao-table .fui-table-wrapper .fui-table-fixed-left__ceiling .fui-table-fixed-header
+{
+	-webkit-box-shadow:2px 0 6px -2px rgba(0,0,0,.2);
+	box-shadow:2px 0 6px -2px rgba(0,0,0,.2);
+}
+
+.jiantao-table .fui-table-wrapper .fui-table-fixed-right
+{
+	position:absolute;
+	top:0;
+	right:0;
+	width:200px;
+	overflow:hidden;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+}
+.jiantao-table .fui-table-wrapper .fui-table-fixed-right,.jiantao-table .fui-table-wrapper .fui-table-fixed-right__ceiling .fui-table-fixed-header
+{
+	-webkit-box-shadow:-2px 0 6px -2px rgba(0,0,0,.2);
+	box-shadow:-2px 0 6px -2px rgba(0,0,0,.2);
+}
+
+.jiantao-table .fui-table-wrapper .fui-table-fixed-right-header
+{
+	position:absolute;
+	top:0;
+	right:0;
+	background-color:#f9fafd;
+	border:1px solid #dadfe3;
+	border-left:none;
+	border-top:none;
+}
+
+.jiantao-table .fui-table-wrapper .fui-table-overflow-x
+{
+	overflow-x:scroll;
+}
+
+.jiantao-table .fui-table-wrapper .fui-table-overflow-y
+{
+	overflow-y:scroll;
+}
+
+.jiantao-table .fui-table-wrapper .fui-table-no-data .fui-table-no-data-text
+{
+	display:flex;
+	-webkit-box-orient:vertical;
+	-webkit-box-direction:normal;
+	-ms-flex-direction:column;
+	flex-direction:column;
+	-webkit-box-pack:center;
+	-ms-flex-pack:center;
+	justify-content:center;
+	text-align:center;
+	padding:13px 16px;
+}
+
+.jiantao-table .fui-table-wrapper .fui-table-body .fui-table-tr,.jiantao-table .fui-table-wrapper .fui-table-fixed-body .fui-table-tr
+{
+	background-color:#fff;
+	font-size:12px;
+	line-height:20px;
+}
+
+.jiantao-table .fui-table-wrapper .fui-table-body .fui-table-column,.jiantao-table .fui-table-wrapper .fui-table-fixed-body .fui-table-column
+{
+	display:inline-flex;
+	-webkit-box-align:center;
+	-ms-flex-align:center;
+	align-items:center;
+	color:#333;
+	border:1px solid #dadfe3;
+	border-left:none;
+	border-top:none;
+	vertical-align:top;
+	overflow:hidden;
+	word-break:break-all;
+	padding:13px 16px;
+}
+
+.jiantao-table .fui-table-wrapper .fui-table-body .fui-table-column.fui-table-td-expand,.jiantao-table .fui-table-wrapper .fui-table-fixed-body .fui-table-column.fui-table-td-expand
+{
+	width:100%;
+	padding:0;
+}
+
+.jiantao-table .fui-table-wrapper .fui-table-body .fui-table-column .fui-table-ceil,.jiantao-table .fui-table-wrapper .fui-table-fixed-body .fui-table-column .fui-table-ceil
+{
+	width:100%;
+	text-align:left;
+}
+
+.jiantao-table-no-border
+{
+	border:none;
+}
+
+.jiantao-table-cellspacing-border
+{
+	border-left:none;
+}
+
+.jiantao-table-cellspacing-border .fui-table-body table tr td:last-child,.jiantao-table-cellspacing-border .fui-table-body table tr th:last-child,.jiantao-table-cellspacing-border .fui-table-fixed-right .fui-table-fixed-body table tr td:last-child,.jiantao-table-cellspacing-border .fui-table-fixed-right .fui-table-fixed-body table tr th:last-child,.jiantao-table-cellspacing-border .fui-table-fixed-right .fui-table-fixed-header table tr td:last-child,.jiantao-table-cellspacing-border .fui-table-fixed-right .fui-table-fixed-header table tr th:last-child,.jiantao-table-cellspacing-border .fui-table-header table tr td:last-child,.jiantao-table-cellspacing-border .fui-table-header table tr th:last-child
+{
+	border-right:transparent;
+}
+.jiantao-table table tr td .fui-table-ceil-right, .jiantao-table table tr th .fui-table-ceil-right {
+    text-align: right;
+}
+.jiantao-table table tr td .fui-table-ceil-center, .jiantao-table table tr th .fui-table-ceil-center {
+    text-align: center;
+}
+.jiantao-table .fui-table-wrapper .fui-table-body .fui-table-column .fui-table-ceil-right, .jiantao-table .fui-table-wrapper .fui-table-fixed-body .fui-table-column .fui-table-ceil-right{
+    text-align: right;
+}
+.jiantao-table .fui-table-wrapper .fui-table-body .fui-table-column .fui-table-ceil-center, .jiantao-table .fui-table-wrapper .fui-table-fixed-body .fui-table-column .fui-table-ceil-center{
+    text-align: center;
+}

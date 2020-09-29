@@ -18,12 +18,10 @@
       <span
         @click="handleExpandClick(row)"
       >
-        <i
+        <byted-icon
           :class="getExpandIconClass(row)"
           name="angle-right"
-        >
-        →
-        </i>
+        />
       </span>
     </template>
     <template v-else>
@@ -63,24 +61,24 @@ export default {
   },
   methods: {
     getCeilClass(column) {
-      const classArr = ['fui-table-ceil'];
+      const classArr = ['bui-table-ceil'];
       if (column.align === 'right') {
-        classArr.push('fui-table-ceil-right');
+        classArr.push('bui-table-ceil-right');
       }
       if (column.align === 'center') {
-        classArr.push('fui-table-ceil-center');
+        classArr.push('bui-table-ceil-center');
       }
       return classArr.join(' ');
     },
     getColumnClass(column) {
       return {
-        'fui-table-td-hidden': this.fixed && this.fixed !==column.fixed || (!this.fixed && column.fixed),
+        'bui-table-td-hidden': this.fixed && this.fixed !==column.fixed || (!this.fixed && column.fixed),
       };
     },
     getExpandIconClass(row) {
-      const classArr = ['fui-table-ceil-expand-icon'];
+      const classArr = ['bui-table-ceil-expand-icon'];
       if (row.isExpand) {
-        classArr.push('fui-table-ceil-expand-icon-open');
+        classArr.push('bui-table-ceil-expand-icon-open');
       }
       return classArr;
     },

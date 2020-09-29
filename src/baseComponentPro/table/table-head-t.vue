@@ -39,7 +39,7 @@
           />
           <div
             v-if="isColumnResizable&&(cindex !==rows.length -1 || isShowResizeBar(column))"
-            class="fui-table-th-resize"
+            class="bui-table-th-resize"
             @mousedown.stop="handleMouseDown(column, $event)"
             @mousemove.stop="handleMouseMove(column, $event)"/>
         </th>
@@ -161,8 +161,8 @@ export default {
     },
     getThClass(column) {
       return {
-        'fui-table-th-pointer': column.sortable,
-        'fui-table-th-hidden': this.fixed && this.fixed !==column.fixed || (!this.fixed && column.fixed),
+        'bui-table-th-pointer': column.sortable,
+        'bui-table-th-hidden': this.fixed && this.fixed !==column.fixed || (!this.fixed && column.fixed),
       };
     },
     handleThClick(column) {

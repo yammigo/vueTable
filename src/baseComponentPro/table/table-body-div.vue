@@ -11,7 +11,7 @@
           position: 'relative',
           height: rowHeight,
         }"
-        class="fui-table-tr"
+        class="bui-table-tr"
         @click="handleRowClick(rdata, rindex)"
         @mouseenter="handleRowMouseEnter(rdata)"
         @mouseleave="handleRowMouseLeave(rdata)"
@@ -21,7 +21,7 @@
           :key="column._id"
           :class="getColumnClass(column)"
           :style="getColumnStyle(column)"
-          class="fui-table-column"
+          class="bui-table-column"
         >
           <ceil
             v-if="isCeilShow(column)"
@@ -37,7 +37,7 @@
         :key="rindex+'expand'"
         :class="trExpandClass"
       >
-        <div class="fui-table-column fui-table-td-expand">
+        <div class="bui-table-column bui-table-td-expand">
           <expand
             :row="rdata"
             :render="expandRender"
@@ -112,7 +112,7 @@ export default {
     },
     trExpandClass() {
       return {
-        'fui-table-tr-expand-hidden': !!this.fixed,
+        'bui-table-tr-expand-hidden': !!this.fixed,
       };
     },
     renderColumns() {
@@ -139,13 +139,13 @@ export default {
     getRowClass(row) {
       const classArr = [].concat(row.rowClassName);
       if (row.isHover) {
-        classArr.push('fui-table-tr-active');
+        classArr.push('bui-table-tr-active');
       }
       return classArr;
     },
     getColumnClass(column) {
       return {
-        'fui-table-td-hidden': this.fixed && this.fixed !==column.fixed || (!this.fixed && column.fixed),
+        'bui-table-td-hidden': this.fixed && this.fixed !==column.fixed || (!this.fixed && column.fixed),
       };
     },
     getColumnStyle(column) {

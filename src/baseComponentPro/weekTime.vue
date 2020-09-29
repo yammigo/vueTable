@@ -459,7 +459,7 @@ export default {
                     return 1 === e.length ? t = this.r(e[0] + 1, "start") : 2 === e.length && (t = this.r(e[1], "end")),
                         [i, t].join("~")
                 }).join("、");
-           
+            console.log(o);
             this.$set(this.timePeriodStrArr, t, o);
         }
 

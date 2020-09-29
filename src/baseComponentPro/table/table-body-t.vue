@@ -46,7 +46,7 @@
           :key="rindex+'expand'">
           <td
             :colspan="columns.length"
-            class="fui-table-td-expand">
+            class="bui-table-td-expand">
             <expand
               :row="rdata"
               :render="expandRender"
@@ -117,7 +117,7 @@ export default {
     },
     trExpandClass() {
       return {
-        'fui-table-tr-expand-hidden': !!this.fixed,
+        'bui-table-tr-expand-hidden': !!this.fixed,
       };
     },
   },
@@ -135,13 +135,13 @@ export default {
     getRowClass(row) {
       const classArr = [].concat(row.rowClassName);
       if (row.isHover) {
-        classArr.push('fui-table-tr-active');
+        classArr.push('bui-table-tr-active');
       }
       return classArr;
     },
     getColumnClass(column) {
       return {
-        'fui-table-td-hidden': this.fixed && this.fixed !==column.fixed || (!this.fixed && column.fixed),
+        'bui-table-td-hidden': this.fixed && this.fixed !==column.fixed || (!this.fixed && column.fixed),
       };
     },
   },

@@ -138,7 +138,7 @@
 }
 </style>
 <template>
-<div class="f-selectCity">
+<div class="f-selectCity" v-if="dataCity.length>0">
     <!-- 下拉组件 -->
     <div class="f-select-panel">
         <div class="fui-select-panel-left" style="margin-right: 16px; width:500px;">
@@ -232,24 +232,59 @@ export default {
             default: function () {
                 return [];
             }
-        },
-        dictCity: {
-            type: Array,
-            default: function () {
-                return []
-            }
         }
     },
     data() {
         return {
             modelValue: [],
+            dictCity: [{
+                    provinceName: '北京',
+                    cityList: [{
+                        cityName: '北京',
+                        cityCode: '2001'
+                    }]
+                },
+                {
+                    provinceName: '天津',
+                    cityList: [{
+                        cityName: '天津',
+                        cityCode: '2002'
+                    }]
+                },
+                {
+                    provinceName: '河北',
+                    cityList: [{
+                            cityName: '沈阳',
+                            cityCode: '2003'
+                        },
+                        {
+                            cityName: '唐山',
+                            cityCode: '2004'
+                        }
+                    ]
+                },
+                {
+                    provinceName: '山西',
+                    cityList: [{
+                            cityName: '太原',
+                            cityCode: '2005'
+                        },
+                        {
+                            cityName: '大同',
+                            cityCode: '2006'
+                        }
+                    ]
+                }
+            ],
             dataCity: [],
             //当前需要展现的列表,
-            currentIndex: 0,
+            currentIndex:0,
             currentList: {}
         };
     },
-
+    created() {
+        //  this.valueInit();
+    },
     mounted() {},
     methods: {
         emitVal() {
@@ -261,9 +296,9 @@ export default {
                     value.checked && select.push(value.cityCode);
                 });
             });
-
-            this.$emit('input', select);
-
+            console.log(select);
+            this.$emit('input',select);
+            
             //  this.valueInit();
         },
         valueInit() {
@@ -295,20 +330,21 @@ export default {
                 });
                 index = 0;
             });
-
+           
             this.dataCity = deepCopy(this.dictCity);
         },
         clickProvince(index) {
-            this.currentIndex = index;
+            this.currentIndex=index;
             // this.currentList =this.dataCity[index];
         },
         changeCityItem(item) {
             try {
                 item.checked = !item.checked;
-
-                let idx = this.currentIndex,
+                
+                let idx =this.currentIndex,
                     a = 0;
-
+                   
+                   
                 for (var i = 0, len = this.dataCity[idx].cityList.length; i < len; i++) {
                     if (this.dataCity[idx].cityList[i].checked) {
                         a += 1;
@@ -342,10 +378,10 @@ export default {
             } else {
                 all.indeterminate = false;
                 var index = this.dataCity.indexOf(all);
-
-                this.currentIndex = index;
+               
+                this.currentIndex =index;
                 var bool = !this.isCityListSelect[index];
-                this.dataCity[index].checked = bool;
+                this.dataCity[index].checked=bool;
                 for (var i = 0; i < all.cityList.length; i++) {
                     all.cityList[i].checked = bool;
                 }
@@ -362,6 +398,9 @@ export default {
                 this.valueInit();
 
             }
+        },
+        dataCity: {
+            handler: function (a, b) {}
         }
     },
     computed: {
@@ -369,7 +408,7 @@ export default {
         isSelectedAll: {
             get() {
                 for (var i = 0; i < this.dataCity.length; i++) {
-
+                    console.log(this.isCityListSelect[i],i);
                     if (!this.isCityListSelect[i]) {
                         return false;
                     }

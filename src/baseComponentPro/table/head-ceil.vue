@@ -17,23 +17,19 @@
     </template>
     <template v-else-if="column.sortable">
       <span
-        class="fui-table-header-icon-wrapper"
+        class="bui-table-header-icon-wrapper"
         @click.stop="handleSortClick(column)"
       >
-        <!-- <div
+        <byted-icon
           :color="column.sortType==='asc' ? '#598fe6' : '#999999'"
-          class="fui-table-sort-icon sort-icon-asc"
+          class="bui-table-sort-icon sort-icon-asc"
           name="sort-asc"
-        /> -->
-        <div :style="{fill:column.sortType==='asc' ? '#598fe6' : '#999999'}" class="fui-table-sort-icon sort-icon-asc jiantao-icon fui-icon-sort-asc" style="fill: rgb(153, 153, 153);"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48" width="100%" height="100%"><defs><path id="sort-asc_svg__a" d="M0 0h48v48H0z"></path></defs><g fill-rule="evenodd"><mask id="sort-asc_svg__b" fill="#fff"><use xlink:href="#sort-asc_svg__a"></use></mask><use fill="#FFF" fill-opacity=".01" xlink:href="#sort-asc_svg__a"></use><path fill-rule="nonzero" d="M16 11c0-1.782 2.154-2.674 3.414-1.414l12 12a2 2 0 0 1 0 2.828l-12 12C18.154 37.674 16 36.782 16 35V11z" transform="rotate(-90 24 23)"></path></g></svg></div>
-
-         
-        <!-- <jiantao-icon
+        />
+        <byted-icon
           :color="column.sortType==='desc' ? '#598fe6' : '#999999'"
-          class="fui-table-sort-icon sort-icon-desc"
+          class="bui-table-sort-icon sort-icon-desc"
           name="sort-asc"
-        /> -->
-        <div :style="{fill:column.sortType==='desc' ? '#598fe6' : '#999999'}" class="fui-table-sort-icon sort-icon-desc jiantao-icon fui-icon-sort-asc" style="fill: rgb(89, 143, 230);"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48" width="100%" height="100%"><defs><path id="sort-asc_svg__a" d="M0 0h48v48H0z"></path></defs><g fill-rule="evenodd"><mask id="sort-asc_svg__b" fill="#fff"><use xlink:href="#sort-asc_svg__a"></use></mask><use fill="#FFF" fill-opacity=".01" xlink:href="#sort-asc_svg__a"></use><path fill-rule="nonzero" d="M16 11c0-1.782 2.154-2.674 3.414-1.414l12 12a2 2 0 0 1 0 2.828l-12 12C18.154 37.674 16 36.782 16 35V11z" transform="rotate(90 24 23)"></path></g></svg></div>
+        />
       </span>
     </template>
   </div>
@@ -78,12 +74,12 @@ export default {
   },
   methods: {
     getCeilClass(column) {
-      const classArr = ['fui-table-ceil'];
+      const classArr = ['bui-table-ceil'];
       if (column.align === 'right') {
-        classArr.push('fui-table-ceil-right');
+        classArr.push('bui-table-ceil-right');
       }
       if (column.align === 'center') {
-        classArr.push('fui-table-ceil-center');
+        classArr.push('bui-table-ceil-center');
       }
       return classArr.join(' ');
     },

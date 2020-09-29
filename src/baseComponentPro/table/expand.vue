@@ -31,7 +31,7 @@ export default {
     };
     const renderFun = this.render(h, params);
     if (typeof(renderFun) === 'string') {
-      return (renderFun);
+      return (<div>{renderFun}</div>);
     }
     return renderFun;
   },
